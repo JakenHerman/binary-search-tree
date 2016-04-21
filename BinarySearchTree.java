@@ -1,6 +1,9 @@
 
 public class BinarySearchTree {
 	public NodeBinaryTree root;
+    public String[] customers = new String[25];
+    public String[] customerNumber = new String[25];
+    public int i = 0;
 
 	public BinarySearchTree() {
 		root = null;
@@ -61,6 +64,20 @@ public class BinarySearchTree {
 			inOrder(root.right);
 		}
 	}
+    
+    public void inOrderAddToList(){
+        inOrderAddToList(root);
+    }
+    
+    public void inOrderAddToList(NodeBinaryTree root){
+        if (root != null) {
+            inOrderAddToList(root.left);
+            this.customers[this.i] = root.getNam();
+            this.customerNumber[this.i] = root.getNum();
+            this.i += 1;
+            inOrderAddToList(root.right);
+        }
+    }
 
 	public void preOrder() {
 		preOrder(root);
@@ -73,4 +90,17 @@ public class BinarySearchTree {
 			preOrder(root.right);
 		}
 	}
+    
+    public String findCustomerIterative(String custToFind){
+        
+        inOrderAddToList();
+        
+        for(int i = 0; i < this.customers.length; i++){
+            if(custToFind == this.customers[i]){
+                return this.customerNumber[i];
+            }
+        }
+        return "not found";
+    }
+    
 }
